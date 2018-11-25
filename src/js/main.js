@@ -8,12 +8,12 @@ export default function () {
   const arrowNode = document.querySelector('#header .header-main .arrow');
   //内容区
   const content = document.querySelector('#content');
-  const list = document.querySelector('#content>ul');
+  const list = document.querySelector('#content .content-list');
 
   //缓存小三角的一半宽度
   const arrowHalfWidth = arrowNode.offsetWidth/2;
   //缓存一频的高度
-  const contentHight = content.offsetHeight;
+  let contentHight = content.offsetHeight;
 
 
   for (let i = 0; i < navNodes.length; i++) {
@@ -84,6 +84,16 @@ export default function () {
     }
     navNodes[nowIndex].className = 'active';
     arrowNode.style.left = navNodes[nowIndex].getBoundingClientRect().left + navNodes[nowIndex].offsetWidth/2 - arrowHalfWidth + 'px';
+    // contentHight = content.offsetHeight;
     list.style.top = -nowIndex * contentHight + 'px';
   }
+  //绑定窗口的缩放事件，修改小箭头和ul的位置
+  window.onresize = function () {
+    // 修改小箭头的位置
+    arrowNode.style.left = navNodes[nowIndex].getBoundingClientRect().left + navNodes[nowIndex].offsetWidth / 2 - arrowHalfWidth + 'px';
+    //修改ul的位置
+    contentHeight  = content.offsetHeight;
+    list.style.top = - nowIndex * contentHeight + 'px';
+  }
+
 }
