@@ -3,11 +3,18 @@
  */
 //引入main
 import main from './main';
-//引入header
-import first from './first';
+
+//引入last
+import last from './last';
+//引入music
+import music from './music';
 
 //导入less文件
 import '../less/index.less';
+//导入mp3文件
+import '../images/audio.mp3';
+
 
 main();
-first();
+last();
+music();

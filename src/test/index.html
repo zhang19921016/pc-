@@ -1,0 +1,87 @@
+/**
+ * Created by 94326 on 2018/11/26.
+ */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <title>Title</title>
+ <style type="text/css">
+  * {
+   margin: 0;
+   padding: 0;
+  }
+  body{
+   background: grey;
+  }
+  #myCanvas{
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   margin: auto;
+   background: white;
+  }
+ </style>
+</head>
+<body>
+
+  <canvas id="myCanvas" width="150" height="400">
+
+  </canvas>
+  <script type="text/javascript">
+    //获取画布
+    const canvas = document.getElementById('myCanvas');
+    const width = canvas.width;
+    const height = canvas.height;
+    const canArr = [];
+    setInterval(() => {
+
+      //随机的颜色
+      let r = Math.round(Math.random()*255);
+      let g = Math.round(Math.random()*255);
+      let b = Math.round(Math.random()*255);
+      //随机的半径
+      let cr = Math.round(Math.random()*8 + 2);
+      //随机位置
+      let x = Math.round(Math.random()*width);
+      let y = height - cr;
+      //初始化弧度
+      let rad = 0;
+      //随机系数
+      let n = Math.round(Math.random()*50 + 20);
+      canArr.push({
+        r,
+        g,
+        b,
+        cr,
+        x,
+        y,
+        rad,
+        n
+      })
+    },20)
+    setInterval(() => {
+      if (canvas.getContext) {
+
+        //获取画笔
+        const paiting = canvas.getContext('2d');
+        //清除画布
+        paiting.clearRect(0,0,width,height);
+
+        canArr.forEach(item => {
+          item.rad += 0.08;
+          x = item.x + Math.sin(item.rad)*item.n;
+          y = item.y - item.rad*item.n;
+          //重新起笔
+          paiting.beginPath();
+          paiting.fillStyle = `rgb(${item.r},${item.g},${item.b})`
+          paiting.arc(x,y,item.cr,0,2*Math.PI);
+          paiting.fill();
+        })
+      }
+    },1000/60)
+  </script>
+</body>
+</html>
